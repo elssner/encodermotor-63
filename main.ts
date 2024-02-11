@@ -12,10 +12,10 @@ input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
 })
 pins.onPulsed(DigitalPin.P2, PulseValue.Low, function () {
     Encoder += 1
-    o4digit.show(Encoder)
-    if (Encoder >= Umdrehungen * 190 / 3) {
+    if (Encoder >= Minuten * (Umdrehungen * 192 / 3)) {
         motors.dualMotorPower(Motor.M0, 0)
     }
+    o4digit.show(Encoder)
 })
 input.onButtonEvent(Button.A, input.buttonEventValue(ButtonEvent.Hold), function () {
     Prozent += -5
@@ -25,12 +25,18 @@ input.onButtonEvent(Button.B, input.buttonEventValue(ButtonEvent.Hold), function
     Prozent += 5
     basic.showNumber(Prozent)
 })
-let Umdrehungen = 0
+let Minuten = 0
 let Prozent = 0
 let Encoder = 0
+let Umdrehungen = 0
 let o4digit: grove.TM1637 = null
 o4digit = grove.createDisplay(DigitalPin.C16, DigitalPin.C17)
 o4digit.set(7)
 pins.setPull(DigitalPin.P2, PinPullMode.PullUp)
+Umdrehungen = 1
 Encoder = 0
 Prozent = 20
+loops.everyInterval(10000, function () {
+    Minuten += 1
+    motors.dualMotorPower(Motor.M0, Prozent)
+})
