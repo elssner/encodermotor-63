@@ -3,8 +3,7 @@ input.onButtonEvent(Button.A, input.buttonEventClick(), function () {
     basic.showNumber(Umdrehungen)
 })
 input.onButtonEvent(Button.AB, input.buttonEventClick(), function () {
-    Encoder = 0
-    motors.dualMotorPower(Motor.M0, Prozent)
+    basic.showNumber(191)
 })
 input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
     Umdrehungen += 1
@@ -12,7 +11,7 @@ input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
 })
 pins.onPulsed(DigitalPin.P2, PulseValue.Low, function () {
     Encoder += 1
-    if (Encoder >= Minuten * (Umdrehungen * 192 / 3)) {
+    if (Encoder >= Minuten * (Umdrehungen * 191 / 3)) {
         motors.dualMotorPower(Motor.M0, 0)
     }
     o4digit.show(Encoder)
